@@ -39,3 +39,9 @@ doHash();
 doHash();
 doHash();
 doHash();
+
+// Question: What happen if we add process.env.UV_THREADPOOL_SIZE = 5?
+// Answer: FS, Req, Hash, Hash, Hash, Hash (because Req is longer than FS)
+
+// Question: How about 1?
+// Answer: Req, Hash, Hash, Hash, Hash, FS
