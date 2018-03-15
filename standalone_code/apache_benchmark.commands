@@ -1,0 +1,3 @@
+
+Useful apache benchmark commands:
+"ab -c 50 -n 500 localhost:3000/fast" Concurrency: 50 requests at the same time (ensure 50 requests are always running), Number: 500 requests total
