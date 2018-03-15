@@ -1,0 +1,18 @@
+
+Apache Benchmark:
+    Run a benchmark test ("ab -c 50 -n 500 localhost:3000/fast"):
+    -c 50: Concurrency, 50 requests at the same time (ensure 50 requests are always running)
+    -n 500: Number, 500 requests total
+
+PM2:
+    Using PM2 ("pm2 start index.cluster.pm2.js -i 0"):
+    -i 0: pm2 descides how many instances to create for you
+
+    Stop PM2 ("pm2 delete index.cluster.pm2")
+
+    Get a list of running instances ("pm2 list")
+
+    Get more detailed information on an instance ("pm2 show index.cluster.pm2")
+
+    Monitor the process ("pm2 monit")
+

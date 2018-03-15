@@ -13,6 +13,7 @@ if(cluster.isMaster) {
 
     // Create four processes (ie.: four different threadpools)
     // matching this with the number of cores of the CPU is a good rule of thumb.
+    // In practice use pm2: https://github.com/Unitech/pm2
     cluster.fork();
     cluster.fork();
     cluster.fork();
