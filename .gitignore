@@ -2,4 +2,3 @@ node_modules
 .DS_Store
 nohup.out
 .DS_Store
-dev.js
