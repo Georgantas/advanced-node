@@ -49,7 +49,7 @@ mongoose.Query.prototype.exec = async function() {
     // Otherwise, issue the query and store the result in redis
     const result = await exec.apply(this, arguments);
 
-    // OPINION: USE SET INSTEAD IN PRODUCTION
+    // OPINION: USE SET INSTEAD IN PRODUCTION OR MAKE THE EXPIRE TIME WORK ON 'KEY' INSTEAD OF HASHKEY
     client.hset(this.hashKey, key, JSON.stringify(result));
 
     if(this.expireTime){
