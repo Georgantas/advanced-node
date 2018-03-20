@@ -39,7 +39,7 @@ module.exports = app => {
     // const blogs = await Blog.find({ _user: req.user.id });
     // res.send(blogs);
     // client.set(req.user.id, JSON.stringify(blogs));
-    const blogs = await Blog.find({ _user: req.user.id }).cache({ key: req.user.id });
+    const blogs = await Blog.find({ _user: req.user.id }).cache({ hashKey: req.user.id, expireTime: 10 });
 
     res.send(blogs);
   });
@@ -60,6 +60,7 @@ module.exports = app => {
       res.send(400, err);
     }
 
+    // I prefer this way instead of using the cleanCache middleware:
     // clearHash(req.user.id);
   });
 };

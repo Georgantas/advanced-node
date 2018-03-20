@@ -10,7 +10,8 @@ const exec = mongoose.Query.prototype.exec;
 
 mongoose.Query.prototype.cache = function (options = {}) {
     this.useCache = true;
-    this.hashKey = JSON.stringify(options.key || '');
+    this.hashKey = JSON.stringify(options.hashKey || '');
+    this.expireTime = options.expireTime || 0;
 
     return this;
 }
@@ -37,6 +38,7 @@ mongoose.Query.prototype.exec = async function() {
     // If we do, return that
     if(cacheValue){
         // console.log(cacheValue);
+        console.log('returning cached value')
         const doc = JSON.parse(cacheValue);
 
         return Array.isArray(doc)
@@ -47,7 +49,12 @@ mongoose.Query.prototype.exec = async function() {
     // Otherwise, issue the query and store the result in redis
     const result = await exec.apply(this, arguments);
 
-    client.hset(this.hashKey, key, JSON.stringify(result), 'EX', 10);
+    // OPINION: USE SET INSTEAD IN PRODUCTION
+    client.hset(this.hashKey, key, JSON.stringify(result));
+
+    if(this.expireTime){
+        client.expire(this.hashKey, this.expireTime);
+    }
 
     // console.log(result);
     return result;
@@ -55,6 +62,6 @@ mongoose.Query.prototype.exec = async function() {
 
 module.exports = {
     clearHash(hashKey) {
-        client.del(JSON.stringify(hashKey))
+        client.del(JSON.stringify(hashKey));
     }
 }
