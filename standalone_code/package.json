@@ -12,7 +12,7 @@
     "express": "^4.16.3",
     "keygrip": "^1.0.2",
     "pm2": "^2.10.1",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "webworker-threads": "^0.7.13"
   }
 }
